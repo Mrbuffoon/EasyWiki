@@ -24,4 +24,9 @@ func main() {
 	for _, targetMdFile := range targetMdFiles {
 		mdtohtml.MarkdownToHtml(targetMdFile)
 	}
+	err = fileops.CopyDir("template/css", htmlPath + "/css")
+	if err != nil {
+		log.Error.Println(err)
+		return
+	}
 }

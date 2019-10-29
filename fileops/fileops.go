@@ -63,11 +63,21 @@ func CopyDir(srcPath, desPath string) error {
 		}
 	}
 
+	if !FileIsExisted(desPath) {
+		err := MakeDir(desPath)
+		if err != nil {
+			return err
+		}
+	}
+
 	if desInfo, err := os.Stat(desPath); err != nil {
 		return err
 	} else {
 		if !desInfo.IsDir() {
-			return errors.New("目标路径不是一个正确的目录！")
+			err := MakeDir(desPath)
+			if err != nil {
+				return errors.New("目标路径不是一个正确的目录！")
+			}
 		}
 	}
 
