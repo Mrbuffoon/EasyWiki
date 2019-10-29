@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	log.Info.Println("Test Start")
 	mdFile := conf.GetValue("SYSTEM", "MdPath")
 	htmlPath := conf.GetValue("SYSTEM", "HtmlPath")
 	err := fileops.CopyDir(mdFile, htmlPath)

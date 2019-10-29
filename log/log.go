@@ -25,7 +25,6 @@ func init() {
 	if err != nil {
 		log.Panic("创建日志文件出错，请检查")
 	}
-	defer logFile.Close()
 
 	Debug = log.New(os.Stdout, "Debug:", log.Ldate|log.Ltime|log.Lshortfile)
 	Info = log.New(io.MultiWriter(os.Stderr, logFile), "Info:", log.Ldate|log.Ltime|log.Lshortfile)
