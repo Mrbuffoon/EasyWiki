@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EasyWiki</title>
+    <style>
+        .markdown-body {
+            margin: 0 0 0 20%;
+            width: 80%;
+            height: 90%;
+            padding: 0;
+        }
+        .markdown-nav {
+            width: 20%;
+            height: 90%;
+            padding: 0;
+            float: left;
+            max-height: 90%;
+            overflow-y: scroll
+        }
+        .markdown-footer {
+            width: 100%;
+            height: 5%;
+            text-align: center;
+            color: royalblue;
+            font-weight: bold;
+            padding: 2% 0 0 0;
+            float: left;
+        }
+        .abstract {
+            padding: 20px 0 0 10px;
+        }
+        html, body {
+            margin: 0px 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+<nav class="markdown-nav">
+        <div class="abstract">
+            <h3>目录</h3>
+            {{.Content}}
+        </div>
+</nav>
+<section class="markdown-body">
+    <iframe src="多线程场景pymysql线程池使用的一点思考.html" style="padding: 0;width: 100%;height: 100%;" frameborder="0" >
+     新的浏览器可能不支持iframe，请更换chrome浏览器
+    </iframe>
+</section>
+<footer class="markdown-footer">
+    - Powered by EasyWiki -
+</footer>
+</body>
+
+</html>

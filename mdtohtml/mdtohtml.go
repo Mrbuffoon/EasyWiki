@@ -2,6 +2,7 @@ package mdtohtml
 
 import (
 	"EasyWiki/log"
+	"bytes"
 	"html/template"
 	"io/ioutil"
 	"os"
@@ -15,7 +16,7 @@ type MK struct {
 }
 
 /* Markdown文件转换成同名HTML文件 */
-func MarkdownToHtml(filepath string) error {
+func MarkdownToHtml(filepath, templateHtml string) error {
 	destFile := strings.ReplaceAll(filepath, ".md", ".html")
 
 	mdStr, err := ioutil.ReadFile(filepath)
@@ -24,10 +25,13 @@ func MarkdownToHtml(filepath string) error {
 		return err
 	}
 
-	content := template.HTML(blackfriday.Run(mdStr))
+	htmlStr := blackfriday.Run(mdStr)
+	htmlStr = bytes.ReplaceAll(htmlStr, []byte(".md"), []byte(".html"))
+
+	content := template.HTML(htmlStr)
 	mk := MK{Content: content}
 
-	temp, _ := template.ParseFiles("./template/html/blog.html")
+	temp, _ := template.ParseFiles(templateHtml)
 	writer, err := os.Create(destFile)
 	if err != nil {
 		log.Error.Println("Open template file error")
