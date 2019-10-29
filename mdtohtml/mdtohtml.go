@@ -16,7 +16,7 @@ type MK struct {
 
 /* Markdown文件转换成同名HTML文件 */
 func MarkdownToHtml(filepath string) error {
-	destFile := "./views/" + strings.ReplaceAll(filepath, ".md", ".html")
+	destFile := strings.ReplaceAll(filepath, ".md", ".html")
 
 	mdStr, err := ioutil.ReadFile(filepath)
 	if err != nil {

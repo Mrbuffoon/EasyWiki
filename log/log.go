@@ -2,7 +2,6 @@ package log
 
 import (
 	"EasyWiki/conf"
-	"EasyWiki/fileops"
 	"io"
 	"log"
 	"os"
@@ -17,11 +16,12 @@ var (
 
 func init() {
 	filePath := conf.GetValue("LOG", "LogPath")
-	err := fileops.MakeDir(filePath)
-	if err != nil {
-		log.Panic("创建日志文件路径出错，请检查")
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		if err := os.MkdirAll(filePath, 0777); err != nil { //os.ModePerm
+			log.Println("创建日志路径失败:", err)
+		}
 	}
-	logFile, err := os.OpenFile(filePath+"easywiki.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0777)
+	logFile, err := os.OpenFile(filePath+"/easywiki.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0777)
 	if err != nil {
 		log.Panic("创建日志文件出错，请检查")
 	}
