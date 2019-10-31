@@ -21,6 +21,38 @@
             max-height: 90%;
             overflow-y: scroll
         }
+        .markdown-nav h1,
+        .markdown-nav h2,
+        .markdown-nav h3,
+        .markdown-nav h4,
+        .markdown-nav h5,
+        .markdown-nav h6,
+        .markdown-nav a {
+            text-decoration: none;
+            color: #2376b7;
+            font-weight: normal;
+            margin: 10px auto;
+        }
+        .markdown-nav h1>a {
+            font-size: 18px;
+        }
+        .markdown-nav h2>a {
+            font-size: 16px;
+        }
+        .markdown-nav h3>a {
+            font-size: 14px;
+        }
+        .markdown-nav h4>a {
+            font-size: 12px;
+        }
+        .markdown-nav h5>a {
+            font-size: 10px;
+        }
+        .markdown-nav h6>a {
+            font-size: 10px;
+            color: #74787a;
+        }
+
         .markdown-footer {
             width: 100%;
             height: 5%;
@@ -45,12 +77,12 @@
 <body>
 <nav class="markdown-nav">
         <div class="abstract">
-            <h3>目录</h3>
+            <p style="color: #032f62;font-weight: bold;font-size: 20px">目录</p>
             {{.Content}}
         </div>
 </nav>
 <section class="markdown-body">
-    <iframe src="多线程场景pymysql线程池使用的一点思考.html" style="padding: 0;width: 100%;height: 100%;" frameborder="0" >
+    <iframe name ="myiFrame" style="padding: 0;width: 100%;height: 100%;" frameborder="0" >
      新的浏览器可能不支持iframe，请更换chrome浏览器
     </iframe>
 </section>

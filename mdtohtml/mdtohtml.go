@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"os"
+	"regexp"
 	"strings"
 
 	"gopkg.in/russross/blackfriday.v2"
@@ -27,7 +28,14 @@ func MarkdownToHtml(filepath, templateHtml string) error {
 
 	htmlStr := blackfriday.Run(mdStr)
 	htmlStr = bytes.ReplaceAll(htmlStr, []byte(".md"), []byte(".html"))
-
+	if strings.HasSuffix(filepath, "RESUME.md") {
+		regex := regexp.MustCompile(`<a (href=\".+.html\")>`)
+		params := regex.FindAllSubmatch(htmlStr, -1)
+		for _, param := range params {
+			log.Info.Println(string(param[1]))
+			htmlStr = bytes.ReplaceAll(htmlStr, param[1], []byte(string(param[1]) + " target=\"myiFrame\""))
+		}
+	}
 	content := template.HTML(htmlStr)
 	mk := MK{Content: content}
 
