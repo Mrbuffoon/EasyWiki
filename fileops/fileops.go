@@ -156,3 +156,28 @@ func WalkDir(dir, suffix string) (files []string, err error) {
 
 	return files, err
 }
+
+/* 删除指定路径下所有内容，不删除最外层目录*/
+func RemoveContents(dir string) error {
+	if !FileIsExisted(dir) {
+		return errors.New("目标路径不存在")
+	}
+	d, err := os.Open(dir)
+	if err != nil {
+		return err
+	}
+	defer d.Close()
+	names, err := d.Readdirnames(-1)
+	if err != nil {
+		return err
+	}
+	for _, name := range names {
+		name = "/" + name
+		err = os.RemoveAll(filepath.Join(dir, name))
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
