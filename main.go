@@ -6,26 +6,28 @@ import (
 	"EasyWiki/log"
 	"EasyWiki/mdtohtml"
 	"net/http"
+	"os"
 	"os/exec"
 	"strings"
 )
 
+/*
+TODO:
+写一个Makefile
+配置webhooks
+写一个Readme
+*/
+
 func PublishWiki() error {
 	mdFile := conf.GetValue("SYSTEM", "MdPath")
-	htmlPath := conf.GetValue("SYSTEM", "HtmlPath")
-	err := fileops.CopyDir(mdFile, htmlPath)
-	if err != nil {
-		log.Error.Println(err)
-		return err
-	}
 
-	targetMdFiles, err := fileops.WalkDir(htmlPath, ".md")
+	targetMdFiles, err := fileops.WalkDir(mdFile, ".md")
 	if err != nil {
 		log.Error.Println(err)
 		return err
 	}
 	for _, targetMdFile := range targetMdFiles {
-		if strings.HasSuffix(targetMdFile, "RESUME.md")  {
+		if strings.HasSuffix(targetMdFile, "RESUME.md") {
 			err = mdtohtml.MarkdownToHtml(targetMdFile, "./template/resume.html")
 		} else {
 			err = mdtohtml.MarkdownToHtml(targetMdFile, "./template/article.html")
@@ -37,7 +39,26 @@ func PublishWiki() error {
 	}
 
 	desDir := conf.GetValue("WEB", "WebRoot")
-	err = fileops.CopyDir(htmlPath, desDir+"/easywikis")
+	err = fileops.CopyDir(mdFile, desDir+"/easywikis")
+	if err != nil {
+		log.Error.Println(err)
+		return err
+	}
+
+	targetMdFiles, err = fileops.WalkDir(desDir+"/easywikis", ".md")
+	if err != nil {
+		log.Error.Println(err)
+		return err
+	}
+	for _, targetMdFile := range targetMdFiles {
+		if srcInfo, err := os.Stat(targetMdFile); err == nil {
+			if !srcInfo.IsDir() {
+				os.Remove(targetMdFile)
+			}
+		}
+	}
+
+	_, err = fileops.CopyFile(desDir+"/easywikis/RESUME.html", desDir+"/easywikis/index.html")
 	if err != nil {
 		log.Error.Println(err)
 		return err
@@ -46,7 +67,7 @@ func PublishWiki() error {
 	return nil
 }
 
-func PullCode() error  {
+func PullCode() error {
 	blogPath := conf.GetValue("SYSTEM", "MdPath")
 	repoAddr := conf.GetValue("GIT", "RepoAddr")
 	err := fileops.RemoveContents(blogPath)

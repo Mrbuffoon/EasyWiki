@@ -32,7 +32,6 @@ func MarkdownToHtml(filepath, templateHtml string) error {
 		regex := regexp.MustCompile(`<a (href=\".+.html\")>`)
 		params := regex.FindAllSubmatch(htmlStr, -1)
 		for _, param := range params {
-			log.Info.Println(string(param[1]))
 			htmlStr = bytes.ReplaceAll(htmlStr, param[1], []byte(string(param[1]) + " target=\"myiFrame\""))
 		}
 	}
