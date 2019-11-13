@@ -12,12 +12,6 @@ import (
 	"github.com/Mrbuffoon/EasyWiki/mdtohtml"
 )
 
-/*
-TODO:
-配置webhooks
-写一个Readme
-*/
-
 func PublishWiki() error {
 	mdFile := conf.GetValue("SYSTEM", "MdPath")
 	if !fileops.FileIsExisted(mdFile) {
