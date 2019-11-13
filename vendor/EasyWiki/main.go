@@ -13,6 +13,7 @@ import (
 
 /*
 TODO:
+写一个Makefile
 配置webhooks
 写一个Readme
 */
