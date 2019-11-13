@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"os/exec"
@@ -105,6 +107,9 @@ func PullCode() error {
 }
 
 func runHandler(w http.ResponseWriter, r *http.Request) {
+	result, _ := json.Marshal("successful")
+	fmt.Fprint(w, string(result))
+
 	err := PullCode()
 	if err != nil {
 		log.Error.Println("Clone code fail")
