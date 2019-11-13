@@ -3,6 +3,30 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "qX/D3xJ2UVBbV9RCYfLmU7aYL3U=",
+			"path": "github.com/Mrbuffoon/EasyWiki/conf",
+			"revision": "a2d0fcefd8ac51de18acc3c1461da7703e887e81",
+			"revisionTime": "2019-11-13T03:37:25Z"
+		},
+		{
+			"checksumSHA1": "cFaXbxTH++ZXNuMgQk+QfORCcpk=",
+			"path": "github.com/Mrbuffoon/EasyWiki/fileops",
+			"revision": "a2d0fcefd8ac51de18acc3c1461da7703e887e81",
+			"revisionTime": "2019-11-13T03:37:25Z"
+		},
+		{
+			"checksumSHA1": "QIpW3xoufgXCg4Fc/6WrNVCOYJE=",
+			"path": "github.com/Mrbuffoon/EasyWiki/log",
+			"revision": "a2d0fcefd8ac51de18acc3c1461da7703e887e81",
+			"revisionTime": "2019-11-13T03:37:25Z"
+		},
+		{
+			"checksumSHA1": "PR4Nb2vnD4O0iZOls01s1sbmb8A=",
+			"path": "github.com/Mrbuffoon/EasyWiki/mdtohtml",
+			"revision": "a2d0fcefd8ac51de18acc3c1461da7703e887e81",
+			"revisionTime": "2019-11-13T03:37:25Z"
+		},
+		{
 			"checksumSHA1": "IGPrksV2kzWSKV1wgQq7ze+pCE0=",
 			"path": "github.com/shurcooL/sanitized_anchor_name",
 			"revision": "7bfe4c7ecddb3666a94b053b422cdd8f5aaa3615",

@@ -1,14 +1,15 @@
 package main
 
 import (
-	"EasyWiki/conf"
-	"EasyWiki/fileops"
-	"EasyWiki/log"
-	"EasyWiki/mdtohtml"
 	"net/http"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/Mrbuffoon/EasyWiki/conf"
+	"github.com/Mrbuffoon/EasyWiki/fileops"
+	"github.com/Mrbuffoon/EasyWiki/log"
+	"github.com/Mrbuffoon/EasyWiki/mdtohtml"
 )
 
 /*

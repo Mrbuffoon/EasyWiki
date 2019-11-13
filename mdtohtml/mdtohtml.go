@@ -1,13 +1,14 @@
 package mdtohtml
 
 import (
-	"EasyWiki/log"
 	"bytes"
 	"html/template"
 	"io/ioutil"
 	"os"
 	"regexp"
 	"strings"
+
+	"github.com/Mrbuffoon/EasyWiki/log"
 
 	"gopkg.in/russross/blackfriday.v2"
 )
@@ -32,7 +33,7 @@ func MarkdownToHtml(filepath, templateHtml string) error {
 		regex := regexp.MustCompile(`<a (href=\".+.html\")>`)
 		params := regex.FindAllSubmatch(htmlStr, -1)
 		for _, param := range params {
-			htmlStr = bytes.ReplaceAll(htmlStr, param[1], []byte(string(param[1]) + " target=\"myiFrame\""))
+			htmlStr = bytes.ReplaceAll(htmlStr, param[1], []byte(string(param[1])+" target=\"myiFrame\""))
 		}
 	}
 	content := template.HTML(htmlStr)

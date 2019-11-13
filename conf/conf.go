@@ -1,9 +1,10 @@
 package conf
 
 import (
-	"github.com/widuu/goini"
 	"log"
 	"os"
+
+	"github.com/widuu/goini"
 )
 
 func GetValue(section, key string) string {

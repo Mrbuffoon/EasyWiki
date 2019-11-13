@@ -1,10 +1,11 @@
 package log
 
 import (
-	"EasyWiki/conf"
 	"io"
 	"log"
 	"os"
+
+	"github.com/Mrbuffoon/EasyWiki/conf"
 )
 
 var (

@@ -1,7 +1,6 @@
 package fileops
 
 import (
-	"EasyWiki/log"
 	"errors"
 	"io"
 	"io/ioutil"
@@ -9,6 +8,8 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+
+	"github.com/Mrbuffoon/EasyWiki/log"
 )
 
 /* 检查文件或文件夹是否存在 */
@@ -180,4 +181,3 @@ func RemoveContents(dir string) error {
 	}
 	return nil
 }
-
