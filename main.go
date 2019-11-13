@@ -20,6 +20,13 @@ TODO:
 
 func PublishWiki() error {
 	mdFile := conf.GetValue("SYSTEM", "MdPath")
+	if !fileops.FileIsExisted(mdFile) {
+		err := fileops.MakeDir(mdFile)
+		if err != nil {
+			log.Error.Println(err)
+			return err
+		}
+	}
 
 	targetMdFiles, err := fileops.WalkDir(mdFile, ".md")
 	if err != nil {
@@ -28,9 +35,9 @@ func PublishWiki() error {
 	}
 	for _, targetMdFile := range targetMdFiles {
 		if strings.HasSuffix(targetMdFile, "RESUME.md") {
-			err = mdtohtml.MarkdownToHtml(targetMdFile, "./template/resume.html")
+			err = mdtohtml.MarkdownToHtml(targetMdFile, "/var/easywiki/template/easywiki_resume.html")
 		} else {
-			err = mdtohtml.MarkdownToHtml(targetMdFile, "./template/article.html")
+			err = mdtohtml.MarkdownToHtml(targetMdFile, "/var/easywiki/template/easywiki_article.html")
 		}
 		if err != nil {
 			log.Error.Println(err)
@@ -39,6 +46,13 @@ func PublishWiki() error {
 	}
 
 	desDir := conf.GetValue("WEB", "WebRoot")
+	if !fileops.FileIsExisted(desDir) {
+		err := fileops.MakeDir(desDir)
+		if err != nil {
+			log.Error.Println(err)
+			return err
+		}
+	}
 	err = fileops.CopyDir(mdFile, desDir+"/easywikis")
 	if err != nil {
 		log.Error.Println(err)
@@ -70,14 +84,24 @@ func PublishWiki() error {
 func PullCode() error {
 	blogPath := conf.GetValue("SYSTEM", "MdPath")
 	repoAddr := conf.GetValue("GIT", "RepoAddr")
-	err := fileops.RemoveContents(blogPath)
-	if err != nil {
-		log.Error.Println(err)
-		return err
+
+	if !fileops.FileIsExisted(blogPath) {
+		err := fileops.MakeDir(blogPath)
+		if err != nil {
+			log.Error.Println(err)
+			return err
+		}
+	} else {
+		err := fileops.RemoveContents(blogPath)
+		if err != nil {
+			log.Error.Println(err)
+			return err
+		}
 	}
+
 	cmdStr := "git clone " + repoAddr + " " + blogPath
 	cmd := exec.Command("bash", "-c", cmdStr)
-	err = cmd.Run()
+	err := cmd.Run()
 	if err != nil {
 		log.Error.Println(err)
 		return err
@@ -101,5 +125,9 @@ func runHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/webhooks", runHandler)
-	log.Error.Fatal(http.ListenAndServe(":9090", nil))
+	port := conf.GetValue("PORT", "Port")
+	if port == "" {
+		port = "9090"
+	}
+	log.Error.Fatal(http.ListenAndServe(":"+port, nil))
 }
